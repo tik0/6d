@@ -253,7 +253,7 @@ def test_plot():
     yaw_mat_pca = pca.fit_transform(yaw_mat)
 
     # Plot the PCA of projections
-    fig, ax = plt.subplots(5, 3, sharex=True, sharey=True)
+    fig, ax = plt.subplots(5, 3, sharex=True, figsize=(10,12.5), dpi=96)
     c = np.arange(0., 1., 1. / steps)
     ax[0,0].scatter(so3_yaw_pca[:,0], so3_yaw_pca[:,1], cmap = 'hsv', c = c)
     ax[0,1].scatter(so3_pitch_pca[:,0], so3_pitch_pca[:,1], cmap = 'hsv', c = c)
@@ -284,6 +284,10 @@ def test_plot():
     ax[4,0].set_ylabel("RPY")
     ax[4,1].set_title("Straight, because given")
 
+    for a in ax.flatten():
+        a.axis('equal')
+    plt.savefig('pca_plot.png')
     plt.show()
 
-test_plot()
+if __name__ == "__main__":
+    test_plot()
